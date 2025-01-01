@@ -1,34 +1,40 @@
 import asyncio
 import os
-import logging
 from datetime import datetime, timedelta
 from typing import Union
 
-from pyrogram import Client
-from pyrogram.types import InlineKeyboardMarkup
 from ntgcalls import TelegramServerError
-from pytgcalls import PyTgCalls, filters
-from pytgcalls.exceptions import (
-    AlreadyJoinedError,
-    NoActiveGroupCall,
+from pyrogram import Client
+from pyrogram.enums import ChatMembersFilter, ChatMemberStatus
+from pyrogram.errors import (
+    ChatAdminRequired,
+    FloodWait,
+    UserAlreadyParticipant,
+    UserNotParticipant,
 )
+from pyrogram.types import InlineKeyboardMarkup
+from pytgcalls import PyTgCalls
+from pytgcalls.exceptions import AlreadyJoinedError, NoActiveGroupCall
 from pytgcalls.types import (
+    JoinedGroupCallParticipant,
+    LeftGroupCallParticipant,
     MediaStream,
-    AudioQuality,
-    VideoQuality,
     Update,
-    ChatUpdate,
 )
 from pytgcalls.types.stream import StreamAudioEnded
 
 import config
+from strings import get_string
 from VIPMUSIC import LOGGER, YouTube, app
 from VIPMUSIC.misc import db
 from VIPMUSIC.utils.database import (
     add_active_chat,
     add_active_video_chat,
+    get_assistant,
+    get_audio_bitrate,
     get_lang,
     get_loop,
+    get_video_bitrate,
     group_assistant,
     is_autoend,
     music_on,
@@ -38,15 +44,20 @@ from VIPMUSIC.utils.database import (
 )
 from VIPMUSIC.utils.exceptions import AssistantErr
 from VIPMUSIC.utils.formatters import check_duration, seconds_to_min, speed_converter
-from VIPMUSIC.utils.inline.play import stream_markup, stream_markup2
+from VIPMUSIC.utils.inline.play import stream_markup, telegram_markup
 from VIPMUSIC.utils.stream.autoclear import auto_clean
-from VIPMUSIC.utils.thumbnails import get_thumb
-from strings import get_string
+from VIPMUSIC.utils.thumbnails import gen_thumb
 
+active = []
 autoend = {}
 counter = {}
-loop = asyncio.get_event_loop_policy().get_event_loop()
+AUTO_END_TIME = 1
 
+
+async def _st_(chat_id):
+    db[chat_id] = []
+    await remove_active_video_chat(chat_id)
+    await remove_active_chat(chat_id)
 
 async def _clear_(chat_id):
     db[chat_id] = []
