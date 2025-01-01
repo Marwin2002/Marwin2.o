@@ -26,7 +26,7 @@ def cookie_txt_file():
         file.write(f"Choosen File : {cookie_txt_file}\n")
     return f"""cookies/{str(cookie_txt_file).split("/")[-1]}"""
 
-cookies_file = "VIPMUSIC/cookies/cookies.txt"
+cookies_file = "cookies/cookies.txt"
 
 async def check_file_size(link):
     async def get_format_info(link):
