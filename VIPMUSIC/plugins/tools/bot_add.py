@@ -9,7 +9,7 @@ from pyrogram.types import (
     InputMediaVideo,
     Message,
 )
-from config import LOG_GROUP_ID as LOG_GROUP_ID
+from config import LOG_GROUP_ID 
 from VIPMUSIC import app
 from VIPMUSIC.core.userbot import Userbot
 from VIPMUSIC.utils.database import delete_served_chat, add_served_chat
