@@ -1,4 +1,5 @@
 from motor.motor_asyncio import AsyncIOMotorClient
+ from pymongo.cursor import _QUERY_OPTIONS, Cursor, RawBatchCursor
 
 from config import MONGO_DB_URI
 
