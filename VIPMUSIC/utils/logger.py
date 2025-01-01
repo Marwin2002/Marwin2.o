@@ -2,7 +2,7 @@ from pyrogram.enums import ParseMode
 
 from VIPMUSIC import app
 from VIPMUSIC.utils.database import is_on_off
-from config import LOGGER_ID
+from config import LOG_GROUP_ID
 
 
 async def play_logs(message, streamtype):
