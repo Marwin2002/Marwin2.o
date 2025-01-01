@@ -13,7 +13,6 @@ from pyrogram.enums import ChatMembersFilter, ChatMemberStatus, ChatType
 from pyrogram.types import Message
 
 from config import BANNED_USERS
-from strings import get_command
 from VIPMUSIC import app
 from VIPMUSIC.utils.database import set_cmode
 from VIPMUSIC.utils.decorators.admins import AdminActual
