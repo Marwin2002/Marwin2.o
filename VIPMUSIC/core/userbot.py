@@ -9,7 +9,7 @@ from pyrogram import filters
 load_dotenv()
 import config
 from dotenv import load_dotenv
-from strings.__init__ import LOGGERS
+from strings.__init__ import LOG_GROUP_ID
 from ..logging import LOGGER
 
 BOT_TOKEN = getenv("BOT_TOKEN", "")
