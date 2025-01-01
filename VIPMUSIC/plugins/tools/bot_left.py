@@ -5,17 +5,9 @@ from pyrogram.types import Message
 
 from config import LOG_GROUP_ID
 from VIPMUSIC import app
-from VIPMUSIC.utils.database import delete_served_chat, get_assistant
-from VIPMUSIC.utils.database import (
-    delete_filter,
-    get_cmode,
-    get_lang,
-    is_active_chat,
-    is_commanddelete_on,
-    is_maintenance,
-    is_nonadmin_chat,
-    set_loop,
-)
+from VIPMUSIC import app
+from VIPMUSIC.utils.database import get_assistant
+from VIPMUSIC.utils.database import delete_served_chat
 from VIPMUSIC.core.call import VIP
 
 photo = [
