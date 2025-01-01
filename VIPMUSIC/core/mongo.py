@@ -1,5 +1,6 @@
 from pymongo import MongoClient
 from pymongo.cursor import Cursor, RawBatchCursor
+from motor.motor_asyncio import AsyncIOMotorClient
 import asyncio
 
 import config
